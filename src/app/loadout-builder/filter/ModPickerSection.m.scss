@@ -1,0 +1,17 @@
+.mods {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-right: 24px;
+  flex-wrap: wrap;
+}
+
+.oneSection {
+  display: grid;
+  grid-column: 100%;
+}
+
+.fourSections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+}
