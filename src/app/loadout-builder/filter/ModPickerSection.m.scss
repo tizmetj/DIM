@@ -1,17 +1,51 @@
+@import '../../variables';
+
+.header {
+  font-weight: 700;
+  font-size: x-large;
+  margin: 16px 0 8px 0;
+}
+
+.subSection {
+  width: 95%;
+}
+
+.subheader {
+  font-weight: 600;
+  font-size: large;
+  box-shadow: 0 2px $common;
+  margin: 8px 0 16px 0;
+  height: 28px;
+}
+
+.voidSection {
+  box-shadow: 0 2px $void;
+}
+
+.arcSection {
+  box-shadow: 0 2px $arc;
+}
+
+.solarSection {
+  box-shadow: 0 2px $solar;
+}
+
 .mods {
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-right: 24px;
+  margin: 8px 24px 8px 0;
   flex-wrap: wrap;
 }
 
 .oneSection {
   display: grid;
   grid-column: 100%;
+  row-gap: 24px;
 }
 
 .fourSections {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+  row-gap: 24px;
 }

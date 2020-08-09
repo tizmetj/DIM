@@ -75,25 +75,34 @@ function ModPickerSection({
         return null;
       case ModPickerCategories.seasonal:
         return (
-          <h3>{`Season ${
+          <div className={styles.subheader}>{`Season ${
             getSpecialtySocketMetadataByPlugCategoryHash(firstMod.mod.plug.plugCategoryHash)?.season
-          }`}</h3>
+          }`}</div>
         );
       default:
         return (
-          <h3>
+          <div
+            className={clsx(styles.subheader, {
+              [styles.arcSection]:
+                firstMod.mod.plug.energyCost.energyType === DestinyEnergyType.Arc,
+              [styles.solarSection]:
+                firstMod.mod.plug.energyCost.energyType === DestinyEnergyType.Thermal,
+              [styles.voidSection]:
+                firstMod.mod.plug.energyCost.energyType === DestinyEnergyType.Void,
+            })}
+          >
             {
               defs.EnergyType.get(firstMod.mod.plug.energyCost.energyTypeHash).displayProperties
                 .name
             }
-          </h3>
+          </div>
         );
     }
   };
 
   return (
     <div id={`mod-picker-section-${category}`}>
-      <h2>{title}</h2>
+      <div className={styles.header}>{title}</div>
       <div
         className={clsx({
           [styles.oneSection]: category === ModPickerCategories.general,
@@ -101,7 +110,7 @@ function ModPickerSection({
         })}
       >
         {Object.entries(displayGroups).map(([key, group], index) => (
-          <div key={key} style={{ gridColumn: (index % 4) + 1 }}>
+          <div key={key} className={styles.subSection} style={{ gridColumn: (index % 4) + 1 }}>
             {getSubHeader(group[0])}
             <div className={styles.mods}>
               {group.map((item) => (
