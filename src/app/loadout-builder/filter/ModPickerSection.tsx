@@ -8,6 +8,32 @@ import LockedArmor2ModIcon from './LockedArmor2ModIcon';
 import { getSpecialtySocketMetadataByPlugCategoryHash } from 'app/utils/item-utils';
 import clsx from 'clsx';
 
+function SubHeader({ mod, defs }: { mod: LockedArmor2Mod; defs: D2ManifestDefinitions }) {
+  switch (mod.category) {
+    case ModPickerCategories.general:
+      return null;
+    case ModPickerCategories.seasonal:
+      return (
+        <div className={styles.subheader}>{`Season ${
+          getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug!.plugCategoryHash)?.season
+        }`}</div>
+      );
+    default:
+      return (
+        <div
+          className={clsx(styles.subheader, {
+            [styles.arcSection]: mod.mod.plug!.energyCost!.energyType === DestinyEnergyType.Arc,
+            [styles.solarSection]:
+              mod.mod.plug!.energyCost!.energyType === DestinyEnergyType.Thermal,
+            [styles.voidSection]: mod.mod.plug!.energyCost!.energyType === DestinyEnergyType.Void,
+          })}
+        >
+          {defs.EnergyType.get(mod.mod.plug!.energyCost!.energyTypeHash).displayProperties.name}
+        </div>
+      );
+  }
+}
+
 interface Props {
   defs: D2ManifestDefinitions;
   mods: readonly LockedArmor2Mod[];
@@ -63,42 +89,11 @@ function ModPickerSection({
       case ModPickerCategories.general:
         return 'singleGroup';
       case ModPickerCategories.seasonal:
-        return getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug.plugCategoryHash)?.season;
+        return getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug!.plugCategoryHash)?.season;
       default:
-        return mod.mod.plug.energyCost.energyType;
+        return mod.mod.plug!.energyCost!.energyType;
     }
   });
-
-  const getSubHeader = (firstMod: LockedArmor2Mod) => {
-    switch (category) {
-      case ModPickerCategories.general:
-        return null;
-      case ModPickerCategories.seasonal:
-        return (
-          <div className={styles.subheader}>{`Season ${
-            getSpecialtySocketMetadataByPlugCategoryHash(firstMod.mod.plug.plugCategoryHash)?.season
-          }`}</div>
-        );
-      default:
-        return (
-          <div
-            className={clsx(styles.subheader, {
-              [styles.arcSection]:
-                firstMod.mod.plug.energyCost.energyType === DestinyEnergyType.Arc,
-              [styles.solarSection]:
-                firstMod.mod.plug.energyCost.energyType === DestinyEnergyType.Thermal,
-              [styles.voidSection]:
-                firstMod.mod.plug.energyCost.energyType === DestinyEnergyType.Void,
-            })}
-          >
-            {
-              defs.EnergyType.get(firstMod.mod.plug.energyCost.energyTypeHash).displayProperties
-                .name
-            }
-          </div>
-        );
-    }
-  };
 
   return (
     <div id={`mod-picker-section-${category}`}>
@@ -111,7 +106,7 @@ function ModPickerSection({
       >
         {Object.entries(displayGroups).map(([key, group], index) => (
           <div key={key} className={styles.subSection} style={{ gridColumn: (index % 4) + 1 }}>
-            {getSubHeader(group[0])}
+            <SubHeader defs={defs} mod={group[0]} />
             <div className={styles.mods}>
               {group.map((item) => (
                 <LockedArmor2ModIcon
