@@ -37,7 +37,7 @@ function ModPickerFooter(props: Props) {
                     key={lockedItem.key}
                     item={lockedItem}
                     defs={defs}
-                    onClose={() => onModSelected(lockedItem)}
+                    onRemove={() => onModSelected(lockedItem)}
                   />
                 ))}
               </React.Fragment>

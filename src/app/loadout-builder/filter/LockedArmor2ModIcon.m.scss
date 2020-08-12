@@ -1,3 +1,20 @@
+.wrapper {
+  position: relative;
+}
+
 .mod {
   margin: 0 4px 4px 0;
+}
+
+.menu {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: -24px;
+  background-color: black;
+  z-index: 10;
+}
+
+.button {
+  width: 16px;
 }

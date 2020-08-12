@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import _ from 'lodash';
 import styles from './ModPickerSection.m.scss';
 import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
@@ -15,20 +15,20 @@ function SubHeader({ mod, defs }: { mod: LockedArmor2Mod; defs: D2ManifestDefini
     case ModPickerCategories.seasonal:
       return (
         <div className={styles.subheader}>{`Season ${
-          getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug!.plugCategoryHash)?.season
+          getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug.plugCategoryHash)?.season
         }`}</div>
       );
     default:
       return (
         <div
           className={clsx(styles.subheader, {
-            [styles.arcSection]: mod.mod.plug!.energyCost!.energyType === DestinyEnergyType.Arc,
+            [styles.arcSection]: mod.mod.plug.energyCost!.energyType === DestinyEnergyType.Arc,
             [styles.solarSection]:
-              mod.mod.plug!.energyCost!.energyType === DestinyEnergyType.Thermal,
-            [styles.voidSection]: mod.mod.plug!.energyCost!.energyType === DestinyEnergyType.Void,
+              mod.mod.plug.energyCost!.energyType === DestinyEnergyType.Thermal,
+            [styles.voidSection]: mod.mod.plug.energyCost!.energyType === DestinyEnergyType.Void,
           })}
         >
-          {defs.EnergyType.get(mod.mod.plug!.energyCost!.energyTypeHash).displayProperties.name}
+          {defs.EnergyType.get(mod.mod.plug.energyCost!.energyTypeHash).displayProperties.name}
         </div>
       );
   }
@@ -57,43 +57,66 @@ function ModPickerSection({
   onModSelected,
   onModRemoved,
 }: Props) {
-  const isModClickable = (item: LockedArmor2Mod) => {
-    if (locked && locked.length >= maximumSelectable) {
-      return false;
-    }
-
-    if (energyMustMatch) {
-      // cases where item is any energy or all mods are any energy
-      if (
-        item.mod.plug.energyCost!.energyType === DestinyEnergyType.Any ||
-        locked?.every((locked) => locked.mod.plug.energyCost!.energyType === DestinyEnergyType.Any)
-      ) {
-        return true;
-      }
-
-      if (
-        locked?.some(
-          (lockedMod) =>
-            lockedMod.mod.plug.energyCost!.energyType !== item.mod.plug.energyCost!.energyType
-        )
-      ) {
+  const isModClickable = useCallback(
+    (item: LockedArmor2Mod) => {
+      if (locked && locked.length >= maximumSelectable) {
         return false;
       }
-    }
 
-    return true;
-  };
+      if (energyMustMatch) {
+        // cases where item is any energy or all mods are any energy
+        if (
+          item.mod.plug.energyCost!.energyType === DestinyEnergyType.Any ||
+          locked?.every(
+            (locked) => locked.mod.plug.energyCost!.energyType === DestinyEnergyType.Any
+          )
+        ) {
+          return true;
+        }
+
+        if (
+          locked?.some(
+            (lockedMod) =>
+              lockedMod.mod.plug.energyCost!.energyType !== item.mod.plug.energyCost!.energyType
+          )
+        ) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+    [locked, maximumSelectable, energyMustMatch]
+  );
 
   const displayGroups = _.groupBy(mods, (mod) => {
     switch (category) {
       case ModPickerCategories.general:
         return 'singleGroup';
       case ModPickerCategories.seasonal:
-        return getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug!.plugCategoryHash)?.season;
+        return getSpecialtySocketMetadataByPlugCategoryHash(mod.mod.plug.plugCategoryHash)?.season;
       default:
-        return mod.mod.plug!.energyCost!.energyType;
+        return mod.mod.plug.energyCost!.energyType;
     }
   });
+
+  const getOnAdd = useCallback(
+    (mod: LockedArmor2Mod) => {
+      if (isModClickable(mod)) {
+        return () => onModSelected(mod);
+      }
+    },
+    [isModClickable, onModSelected]
+  );
+
+  const getOnRemove = useCallback(
+    (mod: LockedArmor2Mod) => {
+      if (locked?.some((l) => l.mod.hash === mod.mod.hash)) {
+        return () => onModRemoved(mod);
+      }
+    },
+    [locked, onModRemoved]
+  );
 
   return (
     <div id={`mod-picker-section-${category}`}>
@@ -113,10 +136,8 @@ function ModPickerSection({
                   key={item.key}
                   item={item}
                   defs={defs}
-                  clickable={isModClickable(item)}
-                  closeable={Boolean(locked?.some((l) => l.mod.hash === item.mod.hash))}
-                  onClick={() => onModSelected(item)}
-                  onClose={() => onModRemoved(item)}
+                  onAdd={getOnAdd(item)}
+                  onRemove={getOnRemove(item)}
                 />
               ))}
             </div>

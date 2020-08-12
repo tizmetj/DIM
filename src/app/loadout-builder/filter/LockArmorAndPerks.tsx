@@ -238,7 +238,7 @@ function LockArmorAndPerks({
                 key={item.mod.hash}
                 item={item}
                 defs={defs}
-                onClose={() =>
+                onRemove={() =>
                   lbDispatch({
                     type: 'lockedSeasonalModsChanged',
                     lockedSeasonalMods: lockedSeasonalMods.filter(
@@ -277,7 +277,7 @@ function LockArmorAndPerks({
                   key={item.key}
                   item={item}
                   defs={defs}
-                  onClose={() => onArmor2ModClicked(item)}
+                  onRemove={() => onArmor2ModClicked(item)}
                 />
               ))}
             </div>

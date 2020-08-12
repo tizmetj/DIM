@@ -81,6 +81,7 @@ const faGripLinesVertical = 'fas fa-grip-lines-vertical';
 const faExternalLinkAlt = 'fas fa-external-link-alt';
 const faBookmarkSolid = 'fas fa-bookmark';
 const faBookmark = 'far fa-bookmark';
+const faInfoCircle = 'fas fa-info-circle';
 
 const faXbox = 'fab fa-xbox';
 const faPlaystation = 'fab fa-playstation';
@@ -186,4 +187,5 @@ export {
   faDiscord,
   faGithub,
   faReddit,
+  faInfoCircle,
 };
