@@ -10,11 +10,14 @@ import { AppIcon, plusIcon, faMinus, faInfoCircle } from 'app/shell/icons';
 interface Props {
   item: LockedArmor2Mod | LockedModBase;
   defs: D2ManifestDefinitions;
+  addable: boolean;
+  removable: boolean;
+  dimmed: boolean;
   onAdd?(): void;
   onRemove?(): void;
 }
 
-function LockedArmor2ModIcon({ item, defs, onAdd, onRemove }: Props) {
+function LockedArmor2ModIcon({ item, defs, addable, removable, dimmed, onAdd, onRemove }: Props) {
   const ref = useRef(null);
   const [open, setOpen] = useState<{ menu: boolean; info: boolean }>({ menu: false, info: false });
   useClickOutside(ref, open.menu, () => setOpen({ menu: false, info: false }));
@@ -24,21 +27,31 @@ function LockedArmor2ModIcon({ item, defs, onAdd, onRemove }: Props) {
       {open.menu && (
         <div className={styles.menu}>
           {open.info && <div>I am info</div>}
-          <div className={styles.button} onClick={() => onAdd?.()}>
-            <AppIcon icon={plusIcon} />
+          <div className={styles.buttons}>
+            <div
+              className={clsx(styles.button, { disabled: !addable })}
+              onClick={() => addable && onAdd?.()}
+            >
+              <AppIcon icon={plusIcon} />
+            </div>
+            <div
+              className={clsx(styles.button, { disabled: !removable })}
+              onClick={() => removable && onRemove?.()}
+            >
+              <AppIcon icon={faMinus} />
+            </div>
+            <div className={styles.button} onClick={() => setOpen({ menu: true, info: true })}>
+              <AppIcon icon={faInfoCircle} />
+            </div>
           </div>
-          <div className={styles.button} onClick={() => onRemove?.()}>
-            <AppIcon icon={faMinus} />
-          </div>
-          <div className={styles.button} onClick={() => setOpen({ menu: true, info: true })}>
-            <AppIcon icon={faInfoCircle} />
-          </div>
+          <div className={styles.pointyBit} />
         </div>
       )}
       <div className={styles.mod}>
+        {/* TODO Not sure if we should be using SocketDetailsMod as is, maybe extract it? */}
         <SocketDetailsMod
           itemDef={item.mod}
-          className={clsx({ disabled: !onAdd })}
+          className={clsx({ disabled: dimmed, [styles.selected]: open.menu })}
           defs={defs}
           onClick={() => setOpen({ menu: true, info: false })}
         />

@@ -238,6 +238,9 @@ function LockArmorAndPerks({
                 key={item.mod.hash}
                 item={item}
                 defs={defs}
+                addable={false}
+                removable={true}
+                dimmed={false}
                 onRemove={() =>
                   lbDispatch({
                     type: 'lockedSeasonalModsChanged',
@@ -277,6 +280,9 @@ function LockArmorAndPerks({
                   key={item.key}
                   item={item}
                   defs={defs}
+                  addable={false}
+                  removable={true}
+                  dimmed={false}
                   onRemove={() => onArmor2ModClicked(item)}
                 />
               ))}

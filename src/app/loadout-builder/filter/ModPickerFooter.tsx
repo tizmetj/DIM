@@ -36,6 +36,9 @@ function ModPickerFooter(props: Props) {
                   <LockedArmor2ModIcon
                     key={lockedItem.key}
                     item={lockedItem}
+                    addable={false}
+                    removable={true}
+                    dimmed={false}
                     defs={defs}
                     onRemove={() => onModSelected(lockedItem)}
                   />

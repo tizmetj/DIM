@@ -136,6 +136,9 @@ function ModPickerSection({
                   key={item.mod.hash}
                   item={item}
                   defs={defs}
+                  addable={isModClickable(item)}
+                  removable={Boolean(locked?.some((l) => l.mod.hash === item.mod.hash))}
+                  dimmed={!isModClickable(item)}
                   onAdd={getOnAdd(item)}
                   onRemove={getOnRemove(item)}
                 />

@@ -2,8 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'button': string;
+  'buttons': string;
   'menu': string;
   'mod': string;
+  'pointyBit': string;
+  'selected': string;
   'wrapper': string;
 }
 export const cssExports: CssExports;
