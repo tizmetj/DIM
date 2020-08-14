@@ -3,7 +3,7 @@ import { showGearPower$ } from './gear-power';
 import Sheet from '../dim-ui/Sheet';
 import { storesSelector } from '../inventory/selectors';
 import { D2Store } from '../inventory/store-types';
-import { RootState } from '../store/reducers';
+import { RootState } from 'app/store/types';
 import styles from './GearPower.m.scss';
 import { useSelector } from 'react-redux';
 import { t } from 'app/i18next-t';
@@ -13,7 +13,7 @@ import { getLight } from 'app/loadout/loadout-utils';
 import BucketIcon from 'app/dim-ui/svgs/BucketIcon';
 import BungieImage from 'app/dim-ui/BungieImage';
 import { itemPop } from 'app/dim-ui/scroll';
-import { FractionalPowerLevel } from 'app/dim-ui/FractionalPowerLevel';
+import FractionalPowerLevel from 'app/dim-ui/FractionalPowerLevel';
 import clsx from 'clsx';
 
 const bucketClassNames = {

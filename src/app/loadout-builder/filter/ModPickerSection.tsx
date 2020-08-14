@@ -133,7 +133,7 @@ function ModPickerSection({
             <div className={styles.mods}>
               {group.map((item) => (
                 <LockedArmor2ModIcon
-                  key={item.key}
+                  key={item.mod.hash}
                   item={item}
                   defs={defs}
                   onAdd={getOnAdd(item)}

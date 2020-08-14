@@ -1,4 +1,4 @@
-import { RootState } from '../store/reducers';
+import { RootState } from 'app/store/types';
 import { createSelector } from 'reselect';
 import { characterSortSelector } from '../settings/character-sort';
 import _ from 'lodash';
@@ -17,6 +17,8 @@ export const sortedStoresSelector = createSelector(
   characterSortSelector,
   (stores, sortStores) => sortStores(stores)
 );
+
+export const isPhonePortraitSelector = (state: RootState) => state.shell.isPhonePortrait;
 
 /** Have stores been loaded? */
 export const storesLoadedSelector = (state: RootState) => storesSelector(state).length > 0;
