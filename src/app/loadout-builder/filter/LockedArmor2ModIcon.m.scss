@@ -12,12 +12,19 @@
 
 .menu {
   background-color: #313233;
-  border: 1px solid white;
   border-radius: 5px;
-  left: -16px;
   position: absolute;
-  top: -44px;
   z-index: 10;
+  top: -40px;
+  left: -14.5px;
+
+  &[data-popper-placement^='top'] .pointyBit {
+    bottom: -6px;
+  }
+
+  &[data-popper-placement^='bottom'] .pointyBit {
+    top: -4px;
+  }
 }
 
 .buttons {
@@ -32,14 +39,15 @@
 }
 
 .pointyBit {
-  background-color: #313233;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  height: 8px;
-  left: calc(50% - 5.5px);
-  position: absolute;
-  top: calc(100% - 4px);
-  transform: rotate(45deg);
-  width: 8px;
-  z-index: -1;
+  height: 11px;
+  width: 11px;
+
+  &::before {
+    content: '';
+    background-color: #313233;
+    height: 8px;
+    width: 8px;
+    transform: rotate(45deg);
+    position: absolute;
+  }
 }

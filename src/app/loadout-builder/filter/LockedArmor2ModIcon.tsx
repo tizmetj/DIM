@@ -4,8 +4,8 @@ import { LockedArmor2Mod, LockedModBase } from '../types';
 import styles from './LockedArmor2ModIcon.m.scss';
 import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
 import clsx from 'clsx';
-import useClickOutside from 'app/dim-ui/useClickOutside';
-import { AppIcon, plusIcon, faMinus, faInfoCircle } from 'app/shell/icons';
+import useClickOutside from 'app/dim-ui/hooks/useClickOutside';
+import LockedArmor2ModMenu from './LockedArmor2ModMenu';
 
 interface Props {
   item: LockedArmor2Mod | LockedModBase;
@@ -25,27 +25,11 @@ function LockedArmor2ModIcon({ item, defs, addable, removable, dimmed, onAdd, on
   return (
     <div ref={ref} className={styles.wrapper}>
       {open.menu && (
-        <div className={styles.menu}>
-          {open.info && <div>I am info</div>}
-          <div className={styles.buttons}>
-            <div
-              className={clsx(styles.button, { disabled: !addable })}
-              onClick={() => addable && onAdd?.()}
-            >
-              <AppIcon icon={plusIcon} />
-            </div>
-            <div
-              className={clsx(styles.button, { disabled: !removable })}
-              onClick={() => removable && onRemove?.()}
-            >
-              <AppIcon icon={faMinus} />
-            </div>
-            <div className={styles.button} onClick={() => setOpen({ menu: true, info: true })}>
-              <AppIcon icon={faInfoCircle} />
-            </div>
-          </div>
-          <div className={styles.pointyBit} />
-        </div>
+        <LockedArmor2ModMenu
+          buttonRef={ref}
+          onAdd={addable ? onAdd : undefined}
+          onRemove={removable ? onRemove : undefined}
+        />
       )}
       <div className={styles.mod}>
         {/* TODO Not sure if we should be using SocketDetailsMod as is, maybe extract it? */}
