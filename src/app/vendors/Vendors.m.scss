@@ -2,7 +2,7 @@
 
 // TODO: Move to common button library!
 .checkButton {
-  width: 230px;
+  width: 100%;
   margin-top: 8px;
   @include phone-portrait {
     display: block;
