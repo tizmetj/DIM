@@ -11,7 +11,7 @@ interface Props {
   plugDef: PluggableInventoryItemDefinition;
   defs: D2ManifestDefinitions;
   gridColumn: number;
-  onClick(): void;
+  onClick?(): void;
 }
 
 function GeneratedSetMod({ plugDef, defs, gridColumn, onClick }: Props) {
@@ -24,6 +24,7 @@ function GeneratedSetMod({ plugDef, defs, gridColumn, onClick }: Props) {
 
   return (
     <div
+      role="button"
       className={clsx(classes)}
       style={{ gridColumn }}
       title={plugDef.displayProperties.name}
