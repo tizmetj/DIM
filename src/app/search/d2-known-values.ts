@@ -1,4 +1,4 @@
-import { DestinyEnergyType, DamageType } from 'bungie-api-ts/destiny2';
+import { DamageType, DestinyEnergyType } from 'bungie-api-ts/destiny2';
 import { ItemCategoryHashes, PlugCategoryHashes, StatHashes } from 'data/d2/generated-enums';
 
 // ✨ magic values ✨
@@ -56,21 +56,6 @@ export const emptySocketHashes = [
   1835369552, // InventoryItem "Empty Mod Socket"
   3851138800, // InventoryItem "Empty Mod Socket"
   791435474, // InventoryItem "Empty Activity Mod Socket"
-];
-
-/** these are checked against default rolls to determine if something's curated */
-export const curatedPlugsAllowList = [
-  PlugCategoryHashes.Frames,
-  PlugCategoryHashes.Guards,
-  PlugCategoryHashes.Blades,
-  PlugCategoryHashes.Tubes,
-  PlugCategoryHashes.Arrows,
-  PlugCategoryHashes.Batteries,
-  PlugCategoryHashes.Magazines,
-  PlugCategoryHashes.Scopes,
-  PlugCategoryHashes.MagazinesGl,
-  PlugCategoryHashes.Barrels,
-  PlugCategoryHashes.Bowstrings,
 ];
 
 export const armor2PlugCategoryHashesByName = {
@@ -203,8 +188,6 @@ export const armorBuckets = {
 // PRESENTATION NODE KNOWN VALUES
 //
 
-export const TRIUMPHS_ROOT_NODE = 1024788583;
-export const SEALS_ROOT_NODE = 1652422747;
 export const CATALYSTS_ROOT_NODE = 1111248994;
 export const RAID_NODE = 2975760062;
 
@@ -278,3 +261,5 @@ export const breakerTypes = {
 };
 
 export const powerCapPlugSetHash = 573;
+
+export const MAX_ARMOR_ENERGY_CAPACITY = 10;
