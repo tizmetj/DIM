@@ -1,40 +1,39 @@
+import { t } from 'app/i18next-t';
 import {
+  AwaAuthorizationResult,
+  awaGetActionToken,
+  awaInitializeRequest,
+  AwaType,
+  BungieMembershipType,
   DestinyComponentType,
   DestinyEquipItemResults,
+  DestinyItemResponse,
+  DestinyLinkedProfilesResponse,
   DestinyManifest,
   DestinyProfileResponse,
+  DestinyVendorResponse,
+  DestinyVendorsResponse,
   equipItem,
   equipItems as equipItemsApi,
   getDestinyManifest,
+  getItem,
+  getLinkedProfiles,
   getProfile as getProfileApi,
   getVendor as getVendorApi,
   getVendors as getVendorsApi,
   pullFromPostmaster,
   ServerResponse,
   setItemLockState,
-  transferItem,
-  DestinyVendorResponse,
-  DestinyVendorsResponse,
-  awaInitializeRequest,
-  AwaType,
-  awaGetActionToken,
-  AwaAuthorizationResult,
-  getLinkedProfiles,
-  DestinyLinkedProfilesResponse,
-  BungieMembershipType,
-  getItem,
-  DestinyItemResponse,
   setQuestTrackedState,
-  DestinyVendorFilter,
+  transferItem,
 } from 'bungie-api-ts/destiny2';
-import { t } from 'app/i18next-t';
 import _ from 'lodash';
 import { DestinyAccount } from '../accounts/destiny-account';
-import { httpAdapter, handleUniquenessViolation } from './bungie-service-helper';
 import { getActivePlatform } from '../accounts/get-active-platform';
 import { DimItem } from '../inventory/item-types';
 import { DimStore } from '../inventory/store-types';
 import { reportException } from '../utils/exceptions';
+import { handleUniquenessViolation, httpAdapter } from './bungie-service-helper';
 
 /**
  * APIs for interacting with Destiny 2 game data.
@@ -195,7 +194,6 @@ export async function getVendors(
       // TODO: We should try to defer this until the popup is open!
       DestinyComponentType.ItemPlugObjectives,
     ],
-    filter: DestinyVendorFilter.None,
   });
   return response.Response;
 }
@@ -210,7 +208,6 @@ export async function getVendorsMinimal(
     destinyMembershipId: account.membershipId,
     membershipType: account.originalPlatformType,
     components: [DestinyComponentType.Vendors],
-    filter: DestinyVendorFilter.None,
   });
   return response.Response;
 }

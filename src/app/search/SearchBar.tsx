@@ -1,48 +1,46 @@
-import './search-filter.scss';
-
-import {
-  AppIcon,
-  disabledIcon,
-  helpIcon,
-  searchIcon,
-  faClock,
-  starIcon,
-  moveUpIcon,
-  moveDownIcon,
-  unTrackedIcon,
-  closeIcon,
-  starOutlineIcon,
-} from '../shell/icons';
+import { Search } from '@destinyitemmanager/dim-api-types';
+import { saveSearch, searchDeleted, searchUsed } from 'app/dim-api/basic-actions';
+import { recentSearchesSelector } from 'app/dim-api/selectors';
+import { Loading } from 'app/dim-ui/Loading';
+import Sheet from 'app/dim-ui/Sheet';
+import { t } from 'app/i18next-t';
+import { isPhonePortraitSelector } from 'app/inventory/selectors';
+import { RootState, ThunkDispatchProp } from 'app/store/types';
+import clsx from 'clsx';
+import { useCombobox } from 'downshift';
+import _ from 'lodash';
 import React, {
   Suspense,
-  useState,
-  useRef,
   useCallback,
-  useImperativeHandle,
   useEffect,
+  useImperativeHandle,
   useLayoutEffect,
   useMemo,
+  useRef,
+  useState,
 } from 'react';
-
-import { Loading } from 'app/dim-ui/Loading';
 import ReactDOM from 'react-dom';
-import Sheet from 'app/dim-ui/Sheet';
-import _ from 'lodash';
-import { t } from 'app/i18next-t';
 import { connect } from 'react-redux';
-import { recentSearchesSelector } from 'app/dim-api/selectors';
-import { searchUsed, saveSearch, searchDeleted } from 'app/dim-api/basic-actions';
-import { useCombobox } from 'downshift';
-import styles from './SearchBar.m.scss';
-import clsx from 'clsx';
-import { parseQuery, canonicalizeQuery } from './query-parser';
-import createAutocompleter, { SearchItemType, SearchItem } from './autocomplete';
-import HighlightedText from './HighlightedText';
-import { RootState, ThunkDispatchProp } from 'app/store/types';
-import { searchConfigSelector } from './search-config';
-import { isPhonePortraitSelector } from 'app/inventory/selectors';
 import { createSelector } from 'reselect';
-import { Search } from '@destinyitemmanager/dim-api-types';
+import {
+  AppIcon,
+  closeIcon,
+  disabledIcon,
+  faClock,
+  helpIcon,
+  moveDownIcon,
+  moveUpIcon,
+  searchIcon,
+  starIcon,
+  starOutlineIcon,
+  unTrackedIcon,
+} from '../shell/icons';
+import createAutocompleter, { SearchItem, SearchItemType } from './autocomplete';
+import HighlightedText from './HighlightedText';
+import { canonicalizeQuery, parseQuery } from './query-parser';
+import { searchConfigSelector } from './search-config';
+import './search-filter.scss';
+import styles from './SearchBar.m.scss';
 
 const searchItemIcons: { [key in SearchItemType]: string } = {
   [SearchItemType.Recent]: faClock,
@@ -55,6 +53,8 @@ const searchItemIcons: { [key in SearchItemType]: string } = {
 interface ProvidedProps {
   /** Placeholder text when nothing has been typed */
   placeholder: string;
+  /** Is this the main search bar in the header? It behaves somewhat differently. */
+  mainSearchBar?: boolean;
   /** Whether to autofocus this on mount */
   autoFocus?: boolean;
   /** A fake property that can be used to force the "live" query to be replaced with the one from props */
@@ -105,8 +105,8 @@ function mapStateToProps() {
   };
 }
 
-const LazyFilterHelp = React.lazy(() =>
-  import(/* webpackChunkName: "filter-help" */ './FilterHelp')
+const LazyFilterHelp = React.lazy(
+  () => import(/* webpackChunkName: "filter-help" */ './FilterHelp')
 );
 
 // TODO: break filter autocomplete into its own object/helpers... with tests
@@ -130,6 +130,7 @@ function SearchBar(
   {
     searchQueryVersion,
     searchQuery,
+    mainSearchBar,
     placeholder,
     children,
     autoFocus,
@@ -198,7 +199,7 @@ function SearchBar(
     openMenu,
   } = useCombobox<SearchItem>({
     items,
-    defaultIsOpen: isPhonePortrait,
+    defaultIsOpen: isPhonePortrait && mainSearchBar,
     defaultHighlightedIndex: liveQuery ? 0 : -1,
     itemToString: (i) => i?.query || '',
     onSelectedItemChange: ({ selectedItem }) => {
@@ -207,21 +208,6 @@ function SearchBar(
         if (selectedItem.type === SearchItemType.Help) {
           setFilterHelpOpen(true);
         }
-      }
-    },
-    stateReducer: (state, actionAndChanges) => {
-      const { type, changes } = actionAndChanges;
-      switch (type) {
-        case useCombobox.stateChangeTypes.FunctionReset:
-          // Keep the menu open when we clear the input
-          return changes.inputValue !== undefined
-            ? {
-                ...changes, // default Downshift new state changes on item selection.
-                isOpen: state.isOpen, // but keep menu open
-              }
-            : changes;
-        default:
-          return changes; // otherwise business as usual.
       }
     },
     onInputValueChange: ({ inputValue }) => {
@@ -237,10 +223,10 @@ function SearchBar(
   };
 
   const clearFilter = useCallback(() => {
-    onClear?.();
+    debouncedUpdateQuery('');
     reset();
-    openMenu();
-  }, [onClear, reset, openMenu]);
+    onClear?.();
+  }, [onClear, reset, debouncedUpdateQuery]);
 
   // Reset live query when search version changes
   useEffect(() => {
@@ -341,7 +327,7 @@ function SearchBar(
         </button>
       )}
 
-      {(liveQuery.length > 0 || isPhonePortrait) && (
+      {(liveQuery.length > 0 || (isPhonePortrait && mainSearchBar)) && (
         <button
           type="button"
           className="filter-bar-button"

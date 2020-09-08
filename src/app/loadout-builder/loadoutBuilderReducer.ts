@@ -1,17 +1,17 @@
-import {
-  LockedMap,
-  LockedModBase,
-  LockedArmor2ModMap,
-  StatTypes,
-  MinMaxIgnored,
-  LockedItemType,
-  ModPickerCategories,
-} from './types';
 import { DimStore } from 'app/inventory/store-types';
-import { getItemAcrossStores, getCurrentStore } from 'app/inventory/stores-helpers';
-import { isLoadoutBuilderItem, addLockedItem, removeLockedItem } from './utils';
+import { getCurrentStore, getItemAcrossStores } from 'app/inventory/stores-helpers';
 import { Loadout } from 'app/loadout/loadout-types';
 import { useReducer } from 'react';
+import {
+  LockedArmor2ModMap,
+  LockedItemType,
+  LockedMap,
+  LockedModBase,
+  MinMaxIgnored,
+  ModPickerCategories,
+  StatTypes,
+} from './types';
+import { addLockedItem, isLoadoutBuilderItem, removeLockedItem } from './utils';
 
 export interface LoadoutBuilderState {
   lockedMap: LockedMap;
@@ -21,6 +21,10 @@ export interface LoadoutBuilderState {
   statFilters: Readonly<{ [statType in StatTypes]: MinMaxIgnored }>;
   minimumPower: number;
   modPicker: {
+    open: boolean;
+    initialQuery?: string;
+  };
+  perkPicker: {
     open: boolean;
     initialQuery?: string;
   };
@@ -80,6 +84,9 @@ const lbStateInit = ({
     modPicker: {
       open: false,
     },
+    perkPicker: {
+      open: false,
+    },
   };
 };
 
@@ -98,7 +105,9 @@ export type LoadoutBuilderAction =
     }
   | { type: 'lockedArmor2ModsChanged'; lockedArmor2Mods: LockedArmor2ModMap }
   | { type: 'openModPicker'; initialQuery?: string }
-  | { type: 'closeModPicker' };
+  | { type: 'closeModPicker' }
+  | { type: 'openPerkPicker'; initialQuery?: string }
+  | { type: 'closePerkPicker' };
 
 // TODO: Move more logic inside the reducer
 function lbStateReducer(
@@ -166,6 +175,10 @@ function lbStateReducer(
       };
     case 'closeModPicker':
       return { ...state, modPicker: { open: false } };
+    case 'openPerkPicker':
+      return { ...state, perkPicker: { open: true, initialQuery: action.initialQuery } };
+    case 'closePerkPicker':
+      return { ...state, perkPicker: { open: false } };
   }
 }
 

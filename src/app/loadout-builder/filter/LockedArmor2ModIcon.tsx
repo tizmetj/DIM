@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
+import useClickOutside from 'app/dim-ui/hooks/useClickOutside';
 import { SocketDetailsMod } from 'app/item-popup/SocketDetails';
+import clsx from 'clsx';
+import React, { useRef, useState } from 'react';
 import { LockedArmor2Mod, LockedModBase } from '../types';
 import styles from './LockedArmor2ModIcon.m.scss';
-import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
-import clsx from 'clsx';
-import useClickOutside from 'app/dim-ui/hooks/useClickOutside';
 import LockedArmor2ModMenu from './LockedArmor2ModMenu';
 
 interface Props {

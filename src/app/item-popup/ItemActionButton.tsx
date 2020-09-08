@@ -1,12 +1,17 @@
-import React, { useRef } from 'react';
-import clsx from 'clsx';
-import { useDrop } from 'react-dnd';
-import { mobileDragType } from 'app/inventory/DraggableInventoryItem';
-import styles from './ItemActionButton.m.scss';
 import PressTip from 'app/dim-ui/PressTip';
+import { mobileDragType } from 'app/inventory/DraggableInventoryItem';
+import React, { useRef } from 'react';
+import { useDrop } from 'react-dnd';
+import styles from './ItemActionButton.m.scss';
 
-export function ItemActionButtonGroup({ children }: { children: React.ReactNode }) {
-  return <div className={styles.locations}>{children}</div>;
+export function ItemActionButtonGroup({
+  vertical,
+  children,
+}: {
+  vertical: boolean;
+  children: React.ReactNode;
+}) {
+  return <div className={vertical ? styles.locationsV : styles.locations}>{children}</div>;
 }
 
 /**
@@ -35,13 +40,13 @@ export default function ItemActionButton({
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <PressTip.Control tooltip={title} triggerRef={ref} open={hovering}>
+    <PressTip.Control tooltip={title} triggerRef={ref} open={hovering} className={styles.button}>
       <div
         ref={drop}
-        className={clsx(styles.button, className)}
         title={title}
         aria-label={title}
         onClick={onClick}
+        className={className}
         style={icon ? { backgroundImage: `url("${icon}")` } : undefined}
       >
         <span>{label}</span>

@@ -1,31 +1,29 @@
-import React, { useEffect, useRef, useReducer } from 'react';
-import './InfusionFinder.scss';
-import { DimItem } from '../inventory/item-types';
-import { showInfuse$ } from './infuse';
-import Sheet from '../dim-ui/Sheet';
-import { AppIcon, plusIcon, helpIcon, faRandom, faEquals, faArrowCircleDown } from '../shell/icons';
-import ConnectedInventoryItem from '../inventory/ConnectedInventoryItem';
-import copy from 'fast-copy';
-import { storesSelector, currentStoreSelector } from '../inventory/selectors';
-import { DimStore } from '../inventory/store-types';
-import { RootState } from 'app/store/types';
-import _ from 'lodash';
-import { reverseComparator, compareBy, chainComparator } from '../utils/comparators';
-import { newLoadout, convertToLoadoutItem } from '../loadout/loadout-utils';
-import { connect } from 'react-redux';
+import { DestinyVersion, InfuseDirection } from '@destinyitemmanager/dim-api-types';
 import { t } from 'app/i18next-t';
+import { applyLoadout } from 'app/loadout/loadout-apply';
+import { LoadoutItem } from 'app/loadout/loadout-types';
+import SearchBar from 'app/search/SearchBar';
+import { settingsSelector } from 'app/settings/reducer';
+import { RootState } from 'app/store/types';
+import { useSubscription } from 'app/utils/hooks';
 import clsx from 'clsx';
-import SearchFilterInput from '../search/SearchFilterInput';
+import copy from 'fast-copy';
+import React, { useEffect, useReducer } from 'react';
+import { connect } from 'react-redux';
+import { useLocation } from 'react-router';
+import Sheet from '../dim-ui/Sheet';
+import ConnectedInventoryItem from '../inventory/ConnectedInventoryItem';
+import { DimItem } from '../inventory/item-types';
+import { currentStoreSelector, storesSelector } from '../inventory/selectors';
+import { DimStore } from '../inventory/store-types';
+import { convertToLoadoutItem, newLoadout } from '../loadout/loadout-utils';
+import { showNotification } from '../notifications/notifications';
 import { SearchFilters, searchFiltersConfigSelector } from '../search/search-filter';
 import { setSetting } from '../settings/actions';
-import { showNotification } from '../notifications/notifications';
-import { applyLoadout } from 'app/loadout/loadout-apply';
-import { settingsSelector } from 'app/settings/reducer';
-import { InfuseDirection, DestinyVersion } from '@destinyitemmanager/dim-api-types';
-import { LoadoutItem } from 'app/loadout/loadout-types';
-import { useSubscription } from 'app/utils/hooks';
-import { useLocation } from 'react-router';
-import SearchBar from 'app/search/SearchBar';
+import { AppIcon, faArrowCircleDown, faEquals, faRandom, helpIcon, plusIcon } from '../shell/icons';
+import { chainComparator, compareBy, reverseComparator } from '../utils/comparators';
+import { showInfuse$ } from './infuse';
+import './InfusionFinder.scss';
 
 const itemComparator = chainComparator(
   reverseComparator(compareBy((item: DimItem) => item.primStat!.value)),
@@ -73,8 +71,6 @@ interface State {
   source?: DimItem;
   /** The item that will have its power increased by infusion */
   target?: DimItem;
-  /** Initial height of the sheet, to prevent it resizing */
-  height?: number;
   /** Search filter string */
   filter: string;
 }
@@ -88,7 +84,6 @@ type Action =
   | { type: 'swapDirection' }
   /** Select one of the items in the list */
   | { type: 'selectItem'; item: DimItem }
-  | { type: 'setHeight'; height: number }
   | { type: 'setFilter'; filter: string };
 
 /**
@@ -103,7 +98,6 @@ function stateReducer(state: State, action: Action): State {
         source: undefined,
         target: undefined,
         filter: '',
-        height: undefined,
       };
     case 'init': {
       const direction =
@@ -148,12 +142,6 @@ function stateReducer(state: State, action: Action): State {
         };
       }
     }
-    case 'setHeight': {
-      return {
-        ...state,
-        height: action.height,
-      };
-    }
     case 'setFilter': {
       return {
         ...state,
@@ -170,14 +158,10 @@ function InfusionFinder({
   isPhonePortrait,
   lastInfusionDirection,
 }: Props) {
-  const itemContainer = useRef<HTMLDivElement>(null);
-  const [{ direction, query, source, target, height, filter }, stateDispatch] = useReducer(
-    stateReducer,
-    {
-      direction: lastInfusionDirection,
-      filter: '',
-    }
-  );
+  const [{ direction, query, source, target, filter }, stateDispatch] = useReducer(stateReducer, {
+    direction: lastInfusionDirection,
+    filter: '',
+  });
 
   const reset = () => stateDispatch({ type: 'reset' });
   const selectItem = (item: DimItem) => stateDispatch({ type: 'selectItem', item });
@@ -192,13 +176,6 @@ function InfusionFinder({
       stateDispatch({ type: 'init', item, hasInfusables: hasInfusables, hasFuel });
     })
   );
-
-  // Track the initial height of the sheet
-  useEffect(() => {
-    if (itemContainer.current && !height) {
-      stateDispatch({ type: 'setHeight', height: itemContainer.current.clientHeight });
-    }
-  }, [height]);
 
   // Close the sheet on navigation
   const { pathname } = useLocation();
@@ -296,27 +273,19 @@ function InfusionFinder({
           </div>
         </div>
         <div className="infuseSearch">
-          {$featureFlags.newSearch ? (
-            <SearchBar
-              onQueryChanged={onQueryChanged}
-              placeholder={t('Infusion.Filter')}
-              autoFocus={autoFocus}
-            />
-          ) : (
-            <SearchFilterInput
-              onQueryChanged={onQueryChanged}
-              placeholder={t('Infusion.Filter')}
-              autoFocus={autoFocus}
-            />
-          )}
+          <SearchBar
+            onQueryChanged={onQueryChanged}
+            placeholder={t('Infusion.Filter')}
+            autoFocus={autoFocus}
+          />
         </div>
       </div>
     </div>
   );
 
   return (
-    <Sheet onClose={reset} header={header} sheetClassName="infuseDialog">
-      <div className="infuseSources" ref={itemContainer} style={{ height }}>
+    <Sheet onClose={reset} header={header} sheetClassName="infuseDialog" freezeInitialHeight={true}>
+      <div className="infuseSources">
         {items.length > 0 || dupes.length > 0 ? (
           <>
             <div className="sub-bucket">

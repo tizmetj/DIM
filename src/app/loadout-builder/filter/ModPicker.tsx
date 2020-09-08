@@ -1,44 +1,36 @@
-import React, {
-  Dispatch,
-  useState,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-  useMemo,
-  useEffect,
-} from 'react';
+import { itemsForPlugSet } from 'app/collections/plugset-helpers';
+import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
+import { t } from 'app/i18next-t';
+import { InventoryBuckets } from 'app/inventory/inventory-buckets';
+import { bucketsSelector, profileResponseSelector, storesSelector } from 'app/inventory/selectors';
+import { isPluggableItem } from 'app/inventory/store/sockets';
+import { plugIsInsertable } from 'app/item-popup/SocketDetails';
+import { escapeRegExp } from 'app/search/search-filter';
+import { SearchFilterRef } from 'app/search/SearchBar';
+import { settingsSelector } from 'app/settings/reducer';
+import { RootState } from 'app/store/types';
+import { chainComparator, compareBy } from 'app/utils/comparators';
+import { getSpecialtySocketMetadataByPlugCategoryHash, isArmor2Mod } from 'app/utils/item-utils';
+import { DestinyClass } from 'bungie-api-ts/destiny2';
+import copy from 'fast-copy';
+import _ from 'lodash';
+import React, { Dispatch, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import Sheet from '../../dim-ui/Sheet';
 import '../../item-picker/ItemPicker.scss';
-import { DestinyClass } from 'bungie-api-ts/destiny2';
-import { InventoryBuckets } from 'app/inventory/inventory-buckets';
+import { LoadoutBuilderAction } from '../loadoutBuilderReducer';
 import {
+  isModPickerCategory,
   LockedArmor2Mod,
   LockedArmor2ModMap,
   ModPickerCategories,
   ModPickerCategory,
-  isModPickerCategory,
 } from '../types';
-import _ from 'lodash';
-import { isLoadoutBuilderItem, armor2ModPlugCategoriesTitles } from '../utils';
-import copy from 'fast-copy';
-import { createSelector } from 'reselect';
-import { storesSelector, profileResponseSelector, bucketsSelector } from 'app/inventory/selectors';
-import { RootState } from 'app/store/types';
-import { connect } from 'react-redux';
-import { escapeRegExp } from 'app/search/search-filter';
-import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
-import { plugIsInsertable } from 'app/item-popup/SocketDetails';
-import { settingsSelector } from 'app/settings/reducer';
-import { getSpecialtySocketMetadataByPlugCategoryHash, isArmor2Mod } from 'app/utils/item-utils';
-import ModPickerSection from './ModPickerSection';
-import { chainComparator, compareBy } from 'app/utils/comparators';
-import ModPickerHeader from './ModPickerHeader';
+import { armor2ModPlugCategoriesTitles, isLoadoutBuilderItem } from '../utils';
 import ModPickerFooter from './ModPickerFooter';
-import { itemsForPlugSet } from 'app/collections/plugset-helpers';
-import { SearchFilterRef } from 'app/search/SearchFilterInput';
-import { LoadoutBuilderAction } from '../loadoutBuilderReducer';
-import { isPluggableItem } from 'app/inventory/store/sockets';
-import { t } from 'app/i18next-t';
+import ModPickerHeader from './ModPickerHeader';
+import ModPickerSection from './ModPickerSection';
 
 /** Used for generating the key attribute of the lockedArmor2Mods */
 let modKey = 0;
@@ -177,17 +169,9 @@ function ModPicker({
   lbDispatch,
   onClose,
 }: Props) {
-  const [height, setHeight] = useState<number | undefined>(undefined);
   const [query, setQuery] = useState(initialQuery || '');
   const [lockedArmor2ModsInternal, setLockedArmor2ModsInternal] = useState(copy(lockedArmor2Mods));
   const filterInput = useRef<SearchFilterRef | null>(null);
-  const itemContainer = useRef<HTMLDivElement | null>(null);
-
-  useLayoutEffect(() => {
-    if (itemContainer.current) {
-      setHeight(itemContainer.current.clientHeight);
-    }
-  }, [itemContainer]);
 
   useEffect(() => {
     if (!isPhonePortrait && filterInput.current) {
@@ -309,23 +293,22 @@ function ModPicker({
       }
       footer={footer}
       sheetClassName="item-picker"
+      freezeInitialHeight={true}
     >
-      <div ref={itemContainer} style={{ height }}>
-        {Object.values(ModPickerCategories).map((category) => (
-          <ModPickerSection
-            key={category}
-            mods={modsByCategory[category]}
-            defs={defs}
-            locked={lockedArmor2ModsInternal[category]}
-            title={t(armor2ModPlugCategoriesTitles[category])}
-            category={category}
-            maximumSelectable={isGeneralOrSeasonal(category) ? 5 : 2}
-            energyMustMatch={!isGeneralOrSeasonal(category)}
-            onModSelected={onModSelected}
-            onModRemoved={onModRemoved}
-          />
-        ))}
-      </div>
+      {Object.values(ModPickerCategories).map((category) => (
+        <ModPickerSection
+          key={category}
+          mods={modsByCategory[category]}
+          defs={defs}
+          locked={lockedArmor2ModsInternal[category]}
+          title={t(armor2ModPlugCategoriesTitles[category])}
+          category={category}
+          maximumSelectable={isGeneralOrSeasonal(category) ? 5 : 2}
+          energyMustMatch={!isGeneralOrSeasonal(category)}
+          onModSelected={onModSelected}
+          onModRemoved={onModRemoved}
+        />
+      ))}
     </Sheet>
   );
 }

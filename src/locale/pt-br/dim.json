@@ -5,7 +5,7 @@
   },
   "Accounts": {
     "Blizzard": "PC",
-    "ErrorLoadInventory": "Não foi possível carregar seus personagens e inventário de Destiny",
+    "ErrorLoadInventory": "Não foi possível carregar os seus personagens e inventário de Destiny {{version}}",
     "ErrorLoadManifest": "Não foi possível carregar as informações de banco de dados de Destiny da Bungie",
     "ErrorLoading": "Não foi possível carregar as contas de Destiny da Bungie.net",
     "MissingDescription": "A conta que você está tentando visualizar não está vinculada em seu perfil da Bungie.net.",
@@ -14,8 +14,6 @@
     "PlayStation": "PS4",
     "Stadia": "Stadia",
     "Steam": "Steam",
-    "UnlinkTwitch": "Vincular sua conta Twitch na Bungie.net fará com que suas contas de D1 não funcionem mais.",
-    "UnlinkTwitchButton": "Desvincular Twitch",
     "Xbox": "XB1"
   },
   "Activities": {
@@ -87,6 +85,7 @@
     "Archetype": "Arquétipo",
     "Armor2": "Armadura 2.0",
     "ButtonHelp": "Comparar itens",
+    "CompareBaseStats": "Exibir atributos base",
     "Error": {
       "Archetype": "Incapaz de comparar o item, pois não é um {{type}}.",
       "Class": "Incapaz de comparar o item, pois ele não é para {{class}}."
@@ -373,8 +372,10 @@
     "BungieNetAlert": "Alerta da Bungie",
     "Clear": "Limpar filtro de busca",
     "CompareMatching": "Comparar itens filtrados",
+    "DeleteSearch": "Apagar pesquisa",
     "FilterHelp": "Pesquisar item/perk, {{example}}, e mais",
     "FilterHelpBrief": "Procurar itens",
+    "FilterHelpMenuItem": "Ajuda sobre filtros...",
     "FilterMatchCount": "1 item",
     "FilterMatchCount_plural": "{{count}} itens",
     "Filters": "Filtros",
@@ -385,6 +386,7 @@
     "Refresh": "Atualizar dados do Destiny",
     "ReloadApp": "Recarregar o App",
     "ReportBug": "Relatar Falhas",
+    "SaveSearch": "Salvar pesquisa",
     "Shop": "Loja",
     "UpgradeDIM": "Atualize o DIM",
     "WhatsNew": "Novidades"
@@ -400,15 +402,18 @@
     "ClearDialog": "Dispensar diálogo",
     "ClearNewItems": "Limpar novos itens",
     "ClearNewItemsTitle": "Tecla de atalho: X",
+    "Enter": "ENTER",
     "MarkItemAs": "Marcar item como '{{tag}}'",
     "Menu": "Alternar menu",
     "RefreshInventory": "Atualizar inventário",
     "ShowHotkeys": "Exibir teclas de atalho",
     "StartSearch": "Iniciar uma busca",
     "StartSearchClear": "Iniciar uma busca limpa",
+    "Tab": "TAB",
     "ToggleDetails": "Mostrar todos os detalhes do item"
   },
   "Infusion": {
+    "Filter": "Filtrar itens",
     "InfuseSource": "Selecione o item para infundir {{name}} em",
     "InfuseTarget": "Selecione o item para infundir em {{name}}",
     "Infusion": "Buscador de Item para Infusão",
@@ -554,6 +559,10 @@
     "LockPerk": "Selecione uma energia ou perk",
     "NewEmptyLoadout": "Criar set vazio",
     "NoBuildsFound": "Nenhuma construção compatível. Tente flexibilizar seu critério de filtragem.",
+    "NoBuildsFoundExoticsAndMods": "Você tem um exótico e cinco mods sazonais bloqueados.",
+    "NoBuildsFoundModsAreTooExpensive": "As exigências de energia dos mods selecionados são altas demais.",
+    "NoBuildsFoundSeasonalModNotSatisfied": "Falta um item para guardar um dos mods sazonais selecionados.",
+    "NoBuildsFoundWithReasons": "Nenhuma construção compatível. As causas mais comuns podem incluir:",
     "NumCombinations": "{{count, number}} combinação",
     "NumCombinations_plural": "{{count, number}} combinações",
     "OptimizerExplanation": "Selecione perks, filtre, reorganize atributos e trave itens para estreitar o número de sets em potencial.",
@@ -585,6 +594,7 @@
     "AppliedError": "Nenhum dos itens do seu set pode ser transferido.",
     "AppliedWarn": "Seu set foi parcialmente transferido, mas {{failed}} de {{total}} itens retornaram erros.",
     "ApplySearch": "Transferir a busca \"{{query}}\"",
+    "AssumeMaxWeapons": "Assumindo o nível máximo de poder das armas",
     "Before": "Antes de '{{name}}'",
     "ChooseItem": "Adicionar {{name}}",
     "Classified": "Alguns de seus itens são secretos e não podem ser incluídos no cálculo do Poder máximo.",
@@ -680,10 +690,13 @@
     "AddNote": "Adicionar anotação",
     "CantPullFromPostmaster": "Você dever ir à torre para recuperar este item.",
     "Consolidate": "Consolidar",
+    "Details": "Popup",
     "DistributeEvenly": "Distribuir igualmente",
     "Equip": "Equip",
+    "EquipWithName": "Equipar em {{character}}",
     "Expand": "Expandir detalhes do item",
     "Infuse": "Infunda",
+    "ItemDetailSheet": "Abrir detalhes do item",
     "LockUnlock": {
       "Lock": "Travar {{itemType}}",
       "Unlock": "Destravar {{itemType}}"
@@ -699,8 +712,10 @@
     "ReadLoreLink": "Leia a história",
     "ReviewsTab": "Análises",
     "Rewards": "Recompensas:",
+    "SendToVault": "Enviar para o Cofre",
     "Split": "Dividir",
     "Store": "Mover",
+    "StoreWithName": "Armazenar em {{character}}",
     "Subtitle": {
       "Consumable": "{{classType}} {{typeName}}",
       "Gear": "{{light}} {{statName}} {{classType}} {{typeName}}"
@@ -860,7 +875,6 @@
     "OfMaxRoll": "{{range}} do valor máximo",
     "PercentHelp": "Clique para mais informações sobre Níveis de Qualidade.",
     "PowerCap": "Limite de Poder",
-    "PowerCapDisclaimer": "Informações sobre o Limite de Poder podem estar incorretas para armaduras de incursões ou armas da \"Último Desejo\" e \"Jardim da Salvação\".",
     "PowerCapWithSeason": "{{powerCap}} (máx. na temporada {{finalSeason}})",
     "PowerModifier": "Poder concedido pela progressão de experiência sazonal",
     "Prestige": "Nível de prestígio: {{level}}\n{{exp}}xp para 5 fragmentos de luz.",
@@ -941,7 +955,6 @@
     "Keep": "Manter",
     "LockAll": "Travar Itens",
     "TagItem": "Marcar item",
-    "TagItems": "Marcar itens",
     "UnlockAll": "Destravar itens"
   },
   "Triumphs": {

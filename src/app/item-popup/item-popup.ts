@@ -1,6 +1,5 @@
-import { DimItem } from '../inventory/item-types';
-import { DestinyCollectibleDefinition } from 'bungie-api-ts/destiny2';
 import { Subject } from 'rxjs';
+import { DimItem } from '../inventory/item-types';
 
 export const showItemPopup$ = new Subject<{
   item?: DimItem;
@@ -10,7 +9,6 @@ export const showItemPopup$ = new Subject<{
 
 // Extra optional info for Vendors/Collectibles.
 export interface ItemPopupExtraInfo {
-  collectible?: DestinyCollectibleDefinition;
   failureStrings?: string[];
   owned?: boolean;
   acquired?: boolean;

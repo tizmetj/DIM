@@ -5,7 +5,7 @@
   },
   "Accounts": {
     "Blizzard": "PC",
-    "ErrorLoadInventory": "Tus personajes de Destiny e inventario no se pudieron cargar",
+    "ErrorLoadInventory": "No se pueden cargar tus personajes e inventario de Destiny {{version}}",
     "ErrorLoadManifest": "La información de la base de datos de Destiny desde Bungie no se pudo cargar",
     "ErrorLoading": "No se pudieron cargar cuentas de Destiny desde Bungie.net",
     "MissingDescription": "La cuenta que estás intentando ver no es una cuenta vinculada a tu perfil de Bungie.net.",
@@ -14,8 +14,6 @@
     "PlayStation": "PS4",
     "Stadia": "Stadia",
     "Steam": "Steam",
-    "UnlinkTwitch": "Vincular tu cuenta de Twitch a Bungie.net causará que tus cuentas de Destiny 1 dejen de funcionar.",
-    "UnlinkTwitchButton": "Desvincular Twitch",
     "Xbox": "XB1"
   },
   "Activities": {
@@ -87,6 +85,7 @@
     "Archetype": "Arquetipo",
     "Armor2": "Armadura 2.0",
     "ButtonHelp": "Comparar Objetos",
+    "CompareBaseStats": "Mostrar Estadísticas Base",
     "Error": {
       "Archetype": "No se puede comparar este objeto ya que no es {{type}}.",
       "Class": "No se puede comparar este objeto ya que no es para {{class}}."
@@ -373,8 +372,10 @@
     "BungieNetAlert": "Alerta de Bungie",
     "Clear": "Limpiar filtro de búsqueda",
     "CompareMatching": "Comparar objetos filtrados",
+    "DeleteSearch": "Borrar Búsqueda",
     "FilterHelp": "Buscar objeto/ventaja, {{example}}, y más",
     "FilterHelpBrief": "Buscar objetos",
+    "FilterHelpMenuItem": "Ayuda de Filtros...",
     "FilterMatchCount": "1 objeto",
     "FilterMatchCount_plural": "{{count}} objetos",
     "Filters": "Filtros",
@@ -385,6 +386,7 @@
     "Refresh": "Actualizar datos de Destiny",
     "ReloadApp": "Recargar App",
     "ReportBug": "Informar de un Error",
+    "SaveSearch": "Guardar Búsqueda",
     "Shop": "Tienda",
     "UpgradeDIM": "Actualizar DIM",
     "WhatsNew": "Novedades"
@@ -400,15 +402,18 @@
     "ClearDialog": "Descartar diálogo",
     "ClearNewItems": "Despejar los objetos nuevos",
     "ClearNewItemsTitle": "Atajo de teclado: X",
+    "Enter": "ENTER",
     "MarkItemAs": "Marcar objeto como '{{tag}}'",
     "Menu": "Alternar menú",
     "RefreshInventory": "Actualizar inventario",
     "ShowHotkeys": "Mostrar atajos del teclado",
     "StartSearch": "Empezar una búsqueda",
     "StartSearchClear": "Empezar una nueva búsqueda",
+    "Tab": "TAB",
     "ToggleDetails": "Alternar mostrar detalles completos de objeto"
   },
   "Infusion": {
+    "Filter": "Filtrar objetos",
     "InfuseSource": "Selecciona objeto para infundir {{name}} en",
     "InfuseTarget": "Selecciona objetos para infundir en {{name}}",
     "Infusion": "Buscador de Combustible de Infusión",
@@ -554,6 +559,10 @@
     "LockPerk": "Selecciona elemento o perk",
     "NewEmptyLoadout": "Crear Equipación Vacía",
     "NoBuildsFound": "No se encontraron equipaciones. Intenta expandir tus criterios de filtrado.",
+    "NoBuildsFoundExoticsAndMods": "Tienes un exótico y cinco modificadores de temporada bloqueados.",
+    "NoBuildsFoundModsAreTooExpensive": "Los requisitos de energía de los modificadores seleccionados son muy altos.",
+    "NoBuildsFoundSeasonalModNotSatisfied": "Te falta un objeto para mantener uno de los modificadores de temporada seleccionados.",
+    "NoBuildsFoundWithReasons": "No se encontraron equipaciones. Causes comunes de esto incluyen:",
     "NumCombinations": "{{count, number}} combinación",
     "NumCombinations_plural": "{{count, number}} combinaciones",
     "OptimizerExplanation": "Selecciona perks, filtra y reordena estadísticas, y bloquea objetos para reducir tus posibles equipaciones.",
@@ -585,6 +594,7 @@
     "AppliedError": "Ninguno de los objetos en tu cargador de equipo pudo ser transferido.",
     "AppliedWarn": "Tu equipo ha sido parcialmente transferido, pero {{failed}} de {{total}} objetos tuvieron errores.",
     "ApplySearch": "Búsqueda de la transferencia \"{{query}}\"",
+    "AssumeMaxWeapons": "Asumiendo armas de nivel máximo de poder",
     "Before": "Antes '{{name}}'",
     "ChooseItem": "Añadir {{name}}",
     "Classified": "Algunos de tus objetos son clasificados y no pueden ser incluidos en el cálculo de Poder máximo.",
@@ -680,10 +690,13 @@
     "AddNote": "Agregar una nota",
     "CantPullFromPostmaster": "Debes ir a la torre para recuperar este objeto.",
     "Consolidate": "Consolidar",
+    "Details": "Ventana Emergente",
     "DistributeEvenly": "Distribuir Equitativamente",
     "Equip": "Equipa",
+    "EquipWithName": "Equipar en {{character}}",
     "Expand": "Expandir detalles del objeto",
     "Infuse": "Infundir",
+    "ItemDetailSheet": "Abrir detalles del objeto",
     "LockUnlock": {
       "Lock": "Bloquear {{itemType}}",
       "Unlock": "Desbloquear {{itemType}}"
@@ -699,8 +712,10 @@
     "ReadLoreLink": "Leer lore",
     "ReviewsTab": "Reseñas",
     "Rewards": "Recompensas:",
+    "SendToVault": "Enviar al depósito",
     "Split": "Partir",
     "Store": "Guarda",
+    "StoreWithName": "Almacenar en {{character}}",
     "Subtitle": {
       "Consumable": "{{classType}} {{typeName}}",
       "Gear": "{{classType}} {{typeName}} con {{light}} de {{statName}}"
@@ -860,7 +875,6 @@
     "OfMaxRoll": "{{range}} del máximo posible de tiradas",
     "PercentHelp": "Haz click para más información acerca de su calidad estadística.",
     "PowerCap": "Límite de Poder",
-    "PowerCapDisclaimer": "La información sobre el Límite de Poder puede estar incorrecta para la armadura de cualquier incursión, o para las armas de las incursiones \"Último Deseo\" y \"Jardín de la Salvación.\"",
     "PowerCapWithSeason": "{{powerCap}} (Temporada {{finalSeason}} máximo)",
     "PowerModifier": "Poder otorgado por la progresión de experiencia de temporada",
     "Prestige": "Nivel de Prestigio: {{level}}\n{{exp}}xp para 5 motas de luz.",
@@ -941,7 +955,6 @@
     "Keep": "Mantener",
     "LockAll": "Bloquear objetos",
     "TagItem": "Etiqueta de objeto",
-    "TagItems": "Etiquetar objetos",
     "UnlockAll": "Desbloquear objetos"
   },
   "Triumphs": {
@@ -1026,7 +1039,7 @@
     "ImportNoFile": "No hay archivo seleccionado.",
     "ImportSuccess": "Lista de deseos cargada con información sobre una tirada.{{titleAndDescription}}",
     "ImportSuccess_plural": "Lista de deseos cargada con información sobre {{count, number}} tiradas.{{titleAndDescription}}",
-    "InvalidExternalSource": "Por favor, introduzca una URL válida para su lista de deseos externa. La URL debe empezar con algo de lo siguiente:",
+    "InvalidExternalSource": "Por favor, introduce una URL válida para tu lista externa de deseos. La URL debe empezar con algunos de lo siguientes:",
     "LastUpdated": "Última actualización: {{lastUpdatedDate}} a las {{lastUpdatedTime}}",
     "Num": "{{num, number}} tiradas en tu lista de deseos",
     "UpdateExternalSource": "Actualizar Fuente de la Lista de Deseos",

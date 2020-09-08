@@ -1,43 +1,39 @@
-import React, { useState, Dispatch } from 'react';
+import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
 import { t } from 'app/i18next-t';
+import { InventoryBuckets } from 'app/inventory/inventory-buckets';
+import { DimItem } from 'app/inventory/item-types';
+import { bucketsSelector, storesSelector } from 'app/inventory/selectors';
+import { DimStore } from 'app/inventory/store-types';
+import { showItemPicker } from 'app/item-picker/item-picker';
+import { settingsSelector } from 'app/settings/reducer';
+import { addIcon, AppIcon, faTimesCircle } from 'app/shell/icons';
+import { RootState } from 'app/store/types';
 import _ from 'lodash';
-import { isLoadoutBuilderItem, addLockedItem, removeLockedItem } from '../utils';
+import React, { Dispatch } from 'react';
+import { connect } from 'react-redux';
+import { LoadoutBuilderAction } from '../loadoutBuilderReducer';
+import LoadoutBucketDropTarget from '../locked-armor/LoadoutBucketDropTarget';
 import {
   LockableBuckets,
-  LockedItemType,
-  LockedExclude,
+  LockedArmor2Mod,
+  LockedArmor2ModMap,
   LockedBurn,
+  LockedExclude,
   LockedItemCase,
-  ItemsByBucket,
-  LockedPerk,
+  LockedItemType,
   LockedMap,
   LockedMod,
   LockedModBase,
-  LockedArmor2ModMap,
-  LockedArmor2Mod,
+  LockedPerk,
   ModPickerCategories,
 } from '../types';
-import { InventoryBuckets } from 'app/inventory/inventory-buckets';
-import { DimItem } from 'app/inventory/item-types';
-import { connect } from 'react-redux';
-import { storesSelector, bucketsSelector } from 'app/inventory/selectors';
-import { RootState } from 'app/store/types';
-import { DimStore } from 'app/inventory/store-types';
-import { AppIcon, addIcon, faTimesCircle } from 'app/shell/icons';
-import LoadoutBucketDropTarget from '../locked-armor/LoadoutBucketDropTarget';
-import { showItemPicker } from 'app/item-picker/item-picker';
-import PerkPicker from './PerkPicker';
-import ReactDOM from 'react-dom';
+import { addLockedItem, isLoadoutBuilderItem, removeLockedItem } from '../utils';
 import styles from './LockArmorAndPerks.m.scss';
-import LockedItem from './LockedItem';
-import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
-import { settingsSelector } from 'app/settings/reducer';
 import LockedArmor2ModIcon from './LockedArmor2ModIcon';
-import { LoadoutBuilderAction } from '../loadoutBuilderReducer';
+import LockedItem from './LockedItem';
 
 interface ProvidedProps {
   selectedStore: DimStore;
-  items: ItemsByBucket;
   lockedMap: LockedMap;
   lockedSeasonalMods: LockedModBase[];
   lockedArmor2Mods: LockedArmor2ModMap;
@@ -73,14 +69,11 @@ function LockArmorAndPerks({
   lockedMap,
   lockedSeasonalMods,
   lockedArmor2Mods,
-  items,
   buckets,
   stores,
   isPhonePortrait,
   lbDispatch,
 }: Props) {
-  const [filterPerksOpen, setFilterPerksOpen] = useState(false);
-
   /**
    * Lock currently equipped items on a character
    * Recomputes matched sets
@@ -118,7 +111,6 @@ function LockArmorAndPerks({
     const order = Object.values(LockableBuckets);
     try {
       const { item } = await showItemPicker({
-        hideStoreEquip: true,
         filterItems: (item: DimItem) =>
           Boolean(
             isLoadoutBuilderItem(item) &&
@@ -252,21 +244,13 @@ function LockArmorAndPerks({
           </div>
         )}
         <div className={styles.buttons}>
-          <button type="button" className="dim-button" onClick={() => setFilterPerksOpen(true)}>
+          <button
+            type="button"
+            className="dim-button"
+            onClick={() => lbDispatch({ type: 'openPerkPicker' })}
+          >
             <AppIcon icon={addIcon} /> {t('LoadoutBuilder.LockPerk')}
           </button>
-          {filterPerksOpen &&
-            ReactDOM.createPortal(
-              <PerkPicker
-                classType={selectedStore.classType}
-                items={items}
-                lockedMap={lockedMap}
-                lockedSeasonalMods={lockedSeasonalMods}
-                onClose={() => setFilterPerksOpen(false)}
-                lbDispatch={lbDispatch}
-              />,
-              document.body
-            )}
         </div>
       </div>
       {$featureFlags.armor2ModPicker && (

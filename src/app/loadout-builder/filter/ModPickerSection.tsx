@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
-import _ from 'lodash';
-import styles from './ModPickerSection.m.scss';
 import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
-import { LockedArmor2Mod, ModPickerCategory, ModPickerCategories } from '../types';
-import { DestinyEnergyType } from 'bungie-api-ts/destiny2';
-import LockedArmor2ModIcon from './LockedArmor2ModIcon';
 import { getSpecialtySocketMetadataByPlugCategoryHash } from 'app/utils/item-utils';
+import { DestinyEnergyType } from 'bungie-api-ts/destiny2';
 import clsx from 'clsx';
+import _ from 'lodash';
+import React, { useCallback } from 'react';
+import { LockedArmor2Mod, ModPickerCategories, ModPickerCategory } from '../types';
+import LockedArmor2ModIcon from './LockedArmor2ModIcon';
+import styles from './ModPickerSection.m.scss';
 
 function SubHeader({ mod, defs }: { mod: LockedArmor2Mod; defs: D2ManifestDefinitions }) {
   switch (mod.category) {

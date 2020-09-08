@@ -5,7 +5,7 @@
   },
   "Accounts": {
     "Blizzard": "PC",
-    "ErrorLoadInventory": "Impossible de charger vos personnages et inventaire Destiny",
+    "ErrorLoadInventory": "Unable to load your Destiny {{version}} characters and inventory",
     "ErrorLoadManifest": "Impossible de charger la base de données d'information de Destiny depuis Bungie",
     "ErrorLoading": "Impossible de charger les comptes Destiny depuis Bungie.net",
     "MissingDescription": "Le compte que vous essayez de voir n'est pas un compte associé à votre profil Bungie.net.",
@@ -14,8 +14,6 @@
     "PlayStation": "PS4",
     "Stadia": "Stadia",
     "Steam": "Steam",
-    "UnlinkTwitch": "Lier votre compte Twitch à votre compte Bungie.net empêchera vos comptes D1 de fonctionner.",
-    "UnlinkTwitchButton": "Dissocier Twitch",
     "Xbox": "XB1"
   },
   "Activities": {
@@ -87,6 +85,7 @@
     "Archetype": "Archétype",
     "Armor2": "Armure 2.0",
     "ButtonHelp": "Comparer des Objets",
+    "CompareBaseStats": "Show Base Stats",
     "Error": {
       "Archetype": "Impossible de comparer cet objet parce qu'il n'est pas un {{type}}.",
       "Class": "Impossible de comparer cet objet parce qu'il n'est pas pour un {{class}}."
@@ -373,8 +372,10 @@
     "BungieNetAlert": "Alerte Bungie",
     "Clear": "Effacer le filtre de recherche",
     "CompareMatching": "Comparer les éléments filtrés",
+    "DeleteSearch": "Delete Search",
     "FilterHelp": "Rechercher objet/compétence, {{example}}, et plus",
     "FilterHelpBrief": "Éléments de recherche",
+    "FilterHelpMenuItem": "Filters Help...",
     "FilterMatchCount": "1 objet",
     "FilterMatchCount_plural": "{{count}} objets",
     "Filters": "Filtres",
@@ -385,6 +386,7 @@
     "Refresh": "Rafraîchir les données Destiny",
     "ReloadApp": "Recharger l'application",
     "ReportBug": "Signaler un bug",
+    "SaveSearch": "Save Search",
     "Shop": "Boutique",
     "UpgradeDIM": "Mettre à jour DIM",
     "WhatsNew": "Quoi de neuf"
@@ -400,15 +402,18 @@
     "ClearDialog": "Fermer le dialogue",
     "ClearNewItems": "Effacer les nouveaux objets",
     "ClearNewItemsTitle": "Raccourci clavier: X",
+    "Enter": "ENTER",
     "MarkItemAs": "Marquer objet comme '{{tag}}'",
     "Menu": "Activer/Désactive le menu",
     "RefreshInventory": "Actualiser l'inventaire",
     "ShowHotkeys": "Afficher les raccourcis clavier",
     "StartSearch": "Commencer une recherche",
     "StartSearchClear": "Commencer une nouvelle recherche",
+    "Tab": "TAB",
     "ToggleDetails": "Basculer sur l'affichage des détails complets d'objet"
   },
   "Infusion": {
+    "Filter": "Filter items",
     "InfuseSource": "Sélectionnez un objet dans lequel infuser {{name}}",
     "InfuseTarget": "Sélectionner un objet à infuser dans {{name}}",
     "Infusion": "Chercheur de Carburant à Infusion",
@@ -554,6 +559,10 @@
     "LockPerk": "Sélectionner un élément ou une compétence",
     "NewEmptyLoadout": "Créer un Arsenal Vide",
     "NoBuildsFound": "Aucune présélection possible trouvé. Essayez d'augmenter vos critères de filtrage.",
+    "NoBuildsFoundExoticsAndMods": "You have an exotic and five seasonal mods locked.",
+    "NoBuildsFoundModsAreTooExpensive": "The selected mods' energy requirements are too high.",
+    "NoBuildsFoundSeasonalModNotSatisfied": "You are missing an item to hold one of the selected seasonal mods.",
+    "NoBuildsFoundWithReasons": "No builds found. Common causes of this include:",
     "NumCombinations": "{{count, number}} combination",
     "NumCombinations_plural": "{{count, number}} combinations",
     "OptimizerExplanation": "Sélectionnez des attributs, filtrez et réorganisez les statistiques, et verrouillez des objets pour réduire votre nombre d'arsenaux potentiels.",
@@ -585,6 +594,7 @@
     "AppliedError": "Aucun des objets de votre arsenal n'a pu être transféré.",
     "AppliedWarn": "Votre arsenal a été partiellement transféré, mais {{failed}} objets sur {{total}} ont échoués.",
     "ApplySearch": "Transférer la recherche \"{{query}}\"",
+    "AssumeMaxWeapons": "Assuming max power level weapons",
     "Before": "Avant '{{name}}'",
     "ChooseItem": "Ajouter {{name}}",
     "Classified": "Certains de vos objets sont classifiés et n'ont pas pu être inclus dans le calcul de votre puissance maximum.",
@@ -680,10 +690,13 @@
     "AddNote": "Ajouter une note",
     "CantPullFromPostmaster": "Vous devez aller à la tour pour récupérer cet objet.",
     "Consolidate": "Réunir",
+    "Details": "Popup",
     "DistributeEvenly": "Distribuer équitablement",
     "Equip": "Armer",
+    "EquipWithName": "Equip to {{character}}",
     "Expand": "Étendre les détails de l'objet",
     "Infuse": "Infuser",
+    "ItemDetailSheet": "Open item details",
     "LockUnlock": {
       "Lock": "Bloquer {{itemType}}",
       "Unlock": "Débloquer {{itemType}}"
@@ -699,8 +712,10 @@
     "ReadLoreLink": "Read lore",
     "ReviewsTab": "Évaluations",
     "Rewards": "Récompenses:",
+    "SendToVault": "Send to Vault",
     "Split": "Couper",
     "Store": "Dépôt",
+    "StoreWithName": "Store on {{character}}",
     "Subtitle": {
       "Consumable": "{{classType}} {{typeName}}",
       "Gear": "{{light}} {{statName}} {{classType}} {{typeName}}"
@@ -860,7 +875,6 @@
     "OfMaxRoll": "{{range}} des stats parfaites",
     "PercentHelp": "Cliquez pour plus d'informations sur ce qu'est la qualité des stats.",
     "PowerCap": "Limite de Puissance",
-    "PowerCapDisclaimer": "Les informations de Limite de Puissance peuvent être incorrectes pour les armures provenant de n'importe quel raid, ou les armes provenant des raids \"Dernier Vœu\" et \"Jardin du Salut\"",
     "PowerCapWithSeason": "{{powerCap}} (Saison maximale {{finalSeason}})",
     "PowerModifier": "Puissance accordée par la progression d'experience saisonnière",
     "Prestige": "Niveau de lumière: {{level}}\n{{exp}}xp jusqu'à avoir 5 particule de lumière.",
@@ -941,7 +955,6 @@
     "Keep": "Garder",
     "LockAll": "Verouiller les objets",
     "TagItem": "Ajouter une balise à l'objet",
-    "TagItems": "Ajouter une balise aux objets",
     "UnlockAll": "Déverrouillez les objets"
   },
   "Triumphs": {

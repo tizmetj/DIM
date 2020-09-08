@@ -5,7 +5,7 @@
   },
   "Accounts": {
     "Blizzard": "PC",
-    "ErrorLoadInventory": "Unable to load your Destiny characters and inventory",
+    "ErrorLoadInventory": "Unable to load your Destiny {{version}} characters and inventory",
     "ErrorLoadManifest": "Unable to load Destiny info database from Bungie",
     "ErrorLoading": "Unable to load Destiny accounts from Bungie.net",
     "MissingDescription": "The account you're trying to view is not an account linked to your Bungie.net profile.",
@@ -14,8 +14,6 @@
     "PlayStation": "PS4",
     "Stadia": "Stadia",
     "Steam": "Steam",
-    "UnlinkTwitch": "Linking your Twitch account to Bungie.net will cause your D1 accounts to stop working.",
-    "UnlinkTwitchButton": "Unlink Twitch",
     "Xbox": "XB1"
   },
   "Activities": {
@@ -87,6 +85,7 @@
     "Archetype": "Archetype",
     "Armor2": "Armor 2.0",
     "ButtonHelp": "Compare Items",
+    "CompareBaseStats": "Show Base Stats",
     "Error": {
       "Archetype": "Cannot compare this item as it is not a {{type}}.",
       "Class": "Cannot compare this item as it is not for a {{class}}."
@@ -377,6 +376,7 @@
     "FilterHelp": "Search item/perk, {{example}}, and more",
     "FilterHelpBrief": "Search items",
     "FilterHelpMenuItem": "Filters Help...",
+    "FilterHelpRecords": "Search triumphs and collections",
     "FilterMatchCount": "1 item",
     "FilterMatchCount_plural": "{{count}} items",
     "Filters": "Filters",
@@ -414,6 +414,7 @@
     "ToggleDetails": "Toggle showing full item details"
   },
   "Infusion": {
+    "Filter": "Filter items",
     "InfuseSource": "Select item to infuse {{name}} into",
     "InfuseTarget": "Select item to infuse into {{name}}",
     "Infusion": "Infusion Fuel Finder",
@@ -594,6 +595,7 @@
     "AppliedError": "None of the items in your loadout could be transferred.",
     "AppliedWarn": "Your loadout has been partially transferred, but {{failed}} of {{total}} items had errors.",
     "ApplySearch": "Transfer search \"{{query}}\"",
+    "AssumeMaxWeapons": "Assuming max power level weapons",
     "Before": "Before '{{name}}'",
     "ChooseItem": "Add {{name}}",
     "Classified": "Some of your items are classified, and cannot be included in the max power calculation.",
@@ -711,6 +713,7 @@
     "ReadLoreLink": "Read lore",
     "ReviewsTab": "Reviews",
     "Rewards": "Rewards:",
+    "SendToVault": "Send to Vault",
     "Split": "Split",
     "Store": "Store",
     "StoreWithName": "Store on {{character}}",
@@ -798,19 +801,26 @@
     "CrucibleRank": "Ranks",
     "Items": "Quest Items",
     "Milestones": "Milestones & Challenges",
+    "NoTrackedTriumph": "You have no tracked triumphs. Track one in the game, or as many as you like in DIM.",
     "PercentPrestige": "{{pct}}% to reset",
     "Progress": "Progress",
+    "QueryFilteredTrackedTriumphs": "None of your tracked triumphs matched the search",
     "QuestExpired": "Expired",
     "QuestExpires": "Expires in ",
     "Quests": "Quests",
     "RecordValue": "{{value}}pts",
     "Resets": "1 reset",
     "Resets_plural": "{{count}} resets",
-    "SecretTriumph": "Secret Triumph"
+    "SecretTriumph": "Secret Triumph",
+    "StatTrackers": "Stat Trackers",
+    "TrackedTriumphs": "Tracked Triumphs"
   },
   "RecordBooks": {
     "HideCompleted": "Hide completed records",
     "RecordBooks": "Record Books"
+  },
+  "Records": {
+    "Title": "Records"
   },
   "Settings": {
     "AllowIdPostToDtr": "Show detailed weapon reviews and allow rating weapons",
@@ -873,7 +883,6 @@
     "OfMaxRoll": "{{range}} of max roll",
     "PercentHelp": "Click for more information about what Stats Quality is.",
     "PowerCap": "Power Limit",
-    "PowerCapDisclaimer": "Power Limit information may be incorrect for armor from any raid, or weapons from the raids \"Last Wish\" and \"Garden of Salvation.\"",
     "PowerCapWithSeason": "{{powerCap}} (Season {{finalSeason}} max)",
     "PowerModifier": "Power granted by seasonal experience progression",
     "Prestige": "Prestige Level: {{level}}\n{{exp}}xp until 5 motes of light.",
@@ -957,8 +966,8 @@
     "UnlockAll": "Unlock Items"
   },
   "Triumphs": {
-    "HideCompleted": "Hide Completed",
-    "RevealRedacted": "Reveal Redacted"
+    "HideCompleted": "Hide completed triumphs",
+    "RevealRedacted": "Reveal redacted triumphs"
   },
   "VendorEngramsXyz": {
     "DroppingHigh": "VendorEngrams.xyz reports that this vendor is dropping high-level items.",

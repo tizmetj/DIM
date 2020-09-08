@@ -1,10 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import clsx from 'clsx';
-import { AppIcon, powerActionIcon } from 'app/shell/icons';
 import { isPhonePortraitSelector } from 'app/inventory/selectors';
 import type { DimStore, DimVault } from 'app/inventory/store-types';
+import { AppIcon, powerActionIcon } from 'app/shell/icons';
 import VaultCapacity from 'app/store-stats/VaultCapacity';
+import clsx from 'clsx';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import './CharacterTile.scss';
 
 const CharacterEmblem = ({ store }: { store: DimStore }) => (
@@ -28,7 +28,17 @@ export default function CharacterTile({ store }: { store: DimStore }) {
 
   return (
     <div className="character-tile">
-      <div className="background" style={{ backgroundImage: `url("${store.background}")` }} />
+      <div
+        className="background"
+        style={{
+          backgroundImage: `url("${store.background}")`,
+          backgroundColor: store.isDestiny2()
+            ? `rgb(${Math.round(store.color.red)}, ${Math.round(store.color.green)}, ${Math.round(
+                store.color.blue
+              )}`
+            : 'black',
+        }}
+      />
       <CharacterEmblem store={store} />
       <div className="character-text">
         <div className="top">

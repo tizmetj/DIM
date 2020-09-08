@@ -5,7 +5,7 @@
   },
   "Accounts": {
     "Blizzard": "PC",
-    "ErrorLoadInventory": "Impossibile caricare i tuoi personaggi di Destiny e l'inventario",
+    "ErrorLoadInventory": "Impossible caricare i tuoi personaggi ed inventario di Destiny {{version}}",
     "ErrorLoadManifest": "Impossibile caricare il database informazioni di Destiny da Bungie",
     "ErrorLoading": "Impossibile caricare gli account di Destiny da Bungie.net",
     "MissingDescription": "L'account che stai cercando di visualizzare non è un account collegato al tuo profilo Bungie.net.",
@@ -14,8 +14,6 @@
     "PlayStation": "PS4",
     "Stadia": "Stadia",
     "Steam": "Steam",
-    "UnlinkTwitch": "Collegando il tuo account Twitch a Bungie.net, i tuoi account di Destiny 1 smetteranno di funzionare.",
-    "UnlinkTwitchButton": "Scollega Twitch",
     "Xbox": "XB1"
   },
   "Activities": {
@@ -87,6 +85,7 @@
     "Archetype": "Archetipo",
     "Armor2": "Armatura 2.0",
     "ButtonHelp": "Confronta Oggetti",
+    "CompareBaseStats": "Mostra statistiche di base",
     "Error": {
       "Archetype": "Impossibile confrontare questo oggetto, poiché non è un {{type}}.",
       "Class": "Impossibile confrontare questo oggetto, poiché non è per {{class}}."
@@ -373,8 +372,10 @@
     "BungieNetAlert": "Avviso da Bungie",
     "Clear": "Cancella filtro di ricerca",
     "CompareMatching": "Confronta oggetti filtrati",
+    "DeleteSearch": "Elimina Ricerca",
     "FilterHelp": "Cerca oggetto/perk, {{example}}, e altro",
     "FilterHelpBrief": "Cerca oggetti",
+    "FilterHelpMenuItem": "Aiuto per Filtri...",
     "FilterMatchCount": "1 oggetto",
     "FilterMatchCount_plural": "{{count}} oggetti",
     "Filters": "Filtri",
@@ -385,6 +386,7 @@
     "Refresh": "Aggiorna i dati di Destiny",
     "ReloadApp": "Ricarica App",
     "ReportBug": "Segnala un bug",
+    "SaveSearch": "Salva Ricerca",
     "Shop": "Negozio",
     "UpgradeDIM": "Aggiorna DIM",
     "WhatsNew": "Cosa c'è di nuovo"
@@ -400,15 +402,18 @@
     "ClearDialog": "Chiudi",
     "ClearNewItems": "Pulisci nuovi oggetti",
     "ClearNewItemsTitle": "Scorciatoia da tastiera: X",
+    "Enter": "INVIO",
     "MarkItemAs": "Contrassegna oggetto come '{{tag}}'",
     "Menu": "Attiva/Disattiva menù",
     "RefreshInventory": "Aggiorna l'inventario",
     "ShowHotkeys": "Mostra scorciatoie da tastiera",
     "StartSearch": "Inizia una ricerca",
     "StartSearchClear": "Inizia una ricerca",
+    "Tab": "TAB",
     "ToggleDetails": "Bottone per mostrare o meno tutti i dettagli dell'oggetto"
   },
   "Infusion": {
+    "Filter": "Filtra oggetti",
     "InfuseSource": "Selezionare oggetto in cui infondere {{name}}",
     "InfuseTarget": "Selezionare oggetto da infondere in {{name}}",
     "Infusion": "Trova oggetti per infusione",
@@ -554,6 +559,10 @@
     "LockPerk": "Seleziona elemento o perk",
     "NewEmptyLoadout": "Crea un Loadout vuoto",
     "NoBuildsFound": "Nessuna build trovata. Prova ad espandere i criteri di filtraggio.",
+    "NoBuildsFoundExoticsAndMods": "Hai una esotica e cinque Modifiche stagionali bloccate.",
+    "NoBuildsFoundModsAreTooExpensive": "I requisiti energetici della Modifica selezionata sono troppo alti.",
+    "NoBuildsFoundSeasonalModNotSatisfied": "Ti manca un oggetto per contenere una delle Modifiche stagionali.",
+    "NoBuildsFoundWithReasons": "Nessuna build trovata. Le possibili cause sono:",
     "NumCombinations": "{{count, number}} combinazione",
     "NumCombinations_plural": "{{count, number}} combinazioni",
     "OptimizerExplanation": "Seleziona perks, filtri e riordina le statistiche, blocca oggetti per restringere i tuoi potenziali loadouts.",
@@ -585,6 +594,7 @@
     "AppliedError": "Non è stato possibile trasferire nessuno degli oggetti del tuo loadout.",
     "AppliedWarn": "Il tuo loadout è stato parzialmente trasferito, ma per {{failed}} di {{total}} oggetti il trasferimento è fallito.",
     "ApplySearch": "Trasferisci la ricerca \"{{query}}\"",
+    "AssumeMaxWeapons": "Presupponendo armi al massimo livello di Potere",
     "Before": "Prima '{{name}}'",
     "ChooseItem": "Aggiungi {{name}}",
     "Classified": "Alcuni dei tuoi oggetti sono nascosti, e non possono essere usati nel calcolo per il massimo Potere.",
@@ -680,10 +690,13 @@
     "AddNote": "Aggiungi una nota",
     "CantPullFromPostmaster": "Devi andare alla Torre per recuperare questo oggetto.",
     "Consolidate": "Consolida",
+    "Details": "Popup",
     "DistributeEvenly": "Distribuisci Equamente",
     "Equip": "Usa",
+    "EquipWithName": "Equipaggia su {{character}}",
     "Expand": "Espandi dettagli oggetto",
     "Infuse": "Infus",
+    "ItemDetailSheet": "Apri dettagli oggetto",
     "LockUnlock": {
       "Lock": "Blocca {{itemType}}",
       "Unlock": "Sblocca {{itemType}}"
@@ -699,8 +712,10 @@
     "ReadLoreLink": "Leggi storia",
     "ReviewsTab": "Recensioni",
     "Rewards": "Ricompense:",
+    "SendToVault": "Invia al Deposito",
     "Split": "Dividi",
     "Store": "Muovi",
+    "StoreWithName": "Sposta su {{character}}",
     "Subtitle": {
       "Consumable": "{{typeName}} {{classType}}",
       "Gear": "{{light}} {{statName}} {{typeName}} {{classType}}"
@@ -860,7 +875,6 @@
     "OfMaxRoll": "{{range}} del roll massimo",
     "PercentHelp": "Clicca per maggiori informazioni riguardo la Qualità delle Statistiche.",
     "PowerCap": "Limite di Potere",
-    "PowerCapDisclaimer": "Le informazioni sul limite di Potere per le armature di ogni raid, o le armi di \"Ultimo Desiderio\" e \"Giardino della Salvezza\" potrebbero non essere corrette.",
     "PowerCapWithSeason": "{{powerCap}} (Max stagione {{finalSeason}})",
     "PowerModifier": "Potere dato dal progresso dell'esperienza stagionale",
     "Prestige": "Livello Prestigio: {{level}}\n{{exp}}xp fino alle 5 particelle di luce.",
@@ -941,7 +955,6 @@
     "Keep": "Tieni",
     "LockAll": "Blocca Oggetti",
     "TagItem": "Etichetta Oggetto",
-    "TagItems": "Etichetta Oggetti",
     "UnlockAll": "Sblocca Oggetti"
   },
   "Triumphs": {
