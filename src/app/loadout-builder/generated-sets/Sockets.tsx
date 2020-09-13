@@ -16,6 +16,22 @@ import styles from './Sockets.m.scss';
 
 const undesireablePlugs = [
   PlugCategoryHashes.ArmorSkinsEmpty,
+  PlugCategoryHashes.ArmorSkinsHunterArms,
+  PlugCategoryHashes.ArmorSkinsHunterChest,
+  PlugCategoryHashes.ArmorSkinsHunterClass,
+  PlugCategoryHashes.ArmorSkinsHunterHead,
+  PlugCategoryHashes.ArmorSkinsHunterLegs,
+  PlugCategoryHashes.ArmorSkinsSharedHead,
+  PlugCategoryHashes.ArmorSkinsTitanArms,
+  PlugCategoryHashes.ArmorSkinsTitanChest,
+  PlugCategoryHashes.ArmorSkinsTitanClass,
+  PlugCategoryHashes.ArmorSkinsTitanHead,
+  PlugCategoryHashes.ArmorSkinsTitanLegs,
+  PlugCategoryHashes.ArmorSkinsWarlockArms,
+  PlugCategoryHashes.ArmorSkinsWarlockChest,
+  PlugCategoryHashes.ArmorSkinsWarlockClass,
+  PlugCategoryHashes.ArmorSkinsWarlockHead,
+  PlugCategoryHashes.ArmorSkinsWarlockLegs,
   PlugCategoryHashes.Shader,
   PlugCategoryHashes.V460PlugsArmorMasterworksStatResistance1,
   PlugCategoryHashes.V460PlugsArmorMasterworksStatResistance2,
@@ -33,6 +49,7 @@ interface Props {
   item: DimItem;
   lockedMods?: LockedArmor2Mod[];
   defs: D2ManifestDefinitions;
+  showEquippedMods?: boolean;
   onSocketClick?(
     plugDef: PluggableInventoryItemDefinition,
     category?: ModPickerCategory,
@@ -40,7 +57,7 @@ interface Props {
   ): void;
 }
 
-function GeneratedSetSockets({ item, lockedMods, defs, onSocketClick }: Props) {
+function Sockets({ item, lockedMods, defs, showEquippedMods, onSocketClick }: Props) {
   if (!item.isDestiny2()) {
     return null;
   }
@@ -52,18 +69,24 @@ function GeneratedSetSockets({ item, lockedMods, defs, onSocketClick }: Props) {
     const socketType = defs.SocketType.get(socket.socketDefinition.socketTypeHash);
     let toSave: DestinyInventoryItemDefinition | undefined;
 
-    for (let modIndex = 0; modIndex < modsToUse.length; modIndex++) {
-      const mod = modsToUse[modIndex].mod;
-      if (
-        socketType.plugWhitelist.some((plug) => plug.categoryHash === mod.plug.plugCategoryHash)
-      ) {
-        toSave = mod;
-        modsToUse.splice(modIndex, 1);
+    if (showEquippedMods) {
+      toSave =
+        socket.plugged?.plugDef ||
+        defs.InventoryItem.get(socket.socketDefinition.singleInitialItemHash);
+    } else {
+      for (let modIndex = 0; modIndex < modsToUse.length; modIndex++) {
+        const mod = modsToUse[modIndex].mod;
+        if (
+          socketType.plugWhitelist.some((plug) => plug.categoryHash === mod.plug.plugCategoryHash)
+        ) {
+          toSave = mod;
+          modsToUse.splice(modIndex, 1);
+        }
       }
-    }
 
-    if (!toSave && socket.socketDefinition.singleInitialItemHash) {
-      toSave = defs.InventoryItem.get(socket.socketDefinition.singleInitialItemHash);
+      if (!toSave && socket.socketDefinition.singleInitialItemHash) {
+        toSave = defs.InventoryItem.get(socket.socketDefinition.singleInitialItemHash);
+      }
     }
 
     if (
@@ -98,4 +121,4 @@ function GeneratedSetSockets({ item, lockedMods, defs, onSocketClick }: Props) {
   );
 }
 
-export default GeneratedSetSockets;
+export default Sockets;

@@ -246,8 +246,14 @@
   }
   .sub-bucket.equipped {
     flex: 0;
-    .loadout-item {
-      margin: 0;
+    width: inherit;
+    .equipped-item {
+      display: flex;
+      flex-direction: row;
+
+      .loadout-item {
+        margin: 0;
+      }
     }
   }
 }

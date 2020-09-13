@@ -1,3 +1,6 @@
+import { D1ManifestDefinitions } from 'app/destiny1/d1-definitions';
+import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
+import Sockets from 'app/loadout-builder/generated-sets/Sockets';
 import React from 'react';
 import { InventoryBucket } from '../inventory/inventory-buckets';
 import { DimItem } from '../inventory/item-types';
@@ -11,6 +14,7 @@ export default function LoadoutDrawerBucket({
   loadoutItems,
   items,
   itemSortOrder,
+  defs,
   pickLoadoutItem,
   equip,
   remove,
@@ -19,6 +23,7 @@ export default function LoadoutDrawerBucket({
   loadoutItems: LoadoutItem[];
   items: DimItem[];
   itemSortOrder: string[];
+  defs: D1ManifestDefinitions | D2ManifestDefinitions;
   pickLoadoutItem(bucket: InventoryBucket): void;
   equip(item: DimItem, e: React.MouseEvent): void;
   remove(item: DimItem, e: React.MouseEvent): void;
@@ -50,7 +55,19 @@ export default function LoadoutDrawerBucket({
               <div className="equipped-item">
                 {equippedItems.length > 0 ? (
                   equippedItems.map((item) => (
-                    <LoadoutDrawerItem key={item.index} item={item} equip={equip} remove={remove} />
+                    <>
+                      <LoadoutDrawerItem
+                        key={item.index}
+                        item={item}
+                        equip={equip}
+                        remove={remove}
+                      />
+                      {item.isDestiny2() && defs.isDestiny2() && (
+                        <div style={{ marginLeft: 4 }}>
+                          <Sockets item={item} defs={defs} showEquippedMods={true} />
+                        </div>
+                      )}
+                    </>
                   ))
                 ) : (
                   <a onClick={() => pickLoadoutItem(bucket)} className="pull-item-button">

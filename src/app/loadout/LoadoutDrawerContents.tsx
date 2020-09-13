@@ -1,3 +1,5 @@
+import { D1ManifestDefinitions } from 'app/destiny1/d1-definitions';
+import { D2ManifestDefinitions } from 'app/destiny2/d2-definitions';
 import { t } from 'app/i18next-t';
 import { getCurrentStore } from 'app/inventory/stores-helpers';
 import { itemCanBeInLoadout } from 'app/utils/item-utils';
@@ -68,6 +70,7 @@ export default function LoadoutDrawerContents(
     items,
     stores,
     itemSortOrder,
+    defs,
     equip,
     remove,
     add,
@@ -77,6 +80,7 @@ export default function LoadoutDrawerContents(
     stores: DimStore[];
     items: DimItem[];
     itemSortOrder: string[];
+    defs: D1ManifestDefinitions | D2ManifestDefinitions;
     equip(item: DimItem, e: React.MouseEvent): void;
     remove(item: DimItem, e: React.MouseEvent): void;
     add(item: DimItem, e?: MouseEvent): void;
@@ -126,6 +130,7 @@ export default function LoadoutDrawerContents(
             loadoutItems={loadout.items}
             items={itemsByBucket[bucket.hash] || []}
             itemSortOrder={itemSortOrder}
+            defs={defs}
             pickLoadoutItem={(bucket) => pickLoadoutItem(loadout, bucket, add)}
             equip={equip}
             remove={remove}
