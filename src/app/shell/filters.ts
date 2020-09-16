@@ -239,8 +239,13 @@ export function dtrRatingColor(value: number, property = 'color') {
   };
 }
 
-export function storeBackgroundColor(store: DimStore, index = 0, header = false) {
-  if ($featureFlags.gradientBackground || !store.color) {
+export function storeBackgroundColor(
+  store: DimStore,
+  index = 0,
+  header = false,
+  isPhonePortrait = false
+) {
+  if ($featureFlags.gradientBackground || !store.color || isPhonePortrait) {
     return undefined;
   }
 
