@@ -100,7 +100,8 @@ function StoreBucket({
     items.filter((i) => !i.equipped),
     itemSortOrder
   );
-  const hidePullFromBucket = $featureFlags.mobileCategoryStrip && isPhonePortrait;
+  const hidePullFromBucket =
+    $featureFlags.movePullFromButton && $featureFlags.mobileCategoryStrip && isPhonePortrait;
 
   return (
     <>
